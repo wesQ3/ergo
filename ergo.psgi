@@ -18,5 +18,7 @@ my $app = sub {
 };
 
 builder {
+   enable 'Plack::Middleware::Static',
+      path => qr{^/static/}, root => '.';
    mount '/' => $app;
 };
