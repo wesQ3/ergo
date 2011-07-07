@@ -1,0 +1,36 @@
+<html> 
+<head>
+   <title>[% user.name %] says...</title>
+   <style>
+      body {
+         background-color: #[% user.profile_background_color %];
+      }
+      a { color: #[% user.profile_link_color %]; }
+      #content {
+         width: 600px;
+         margin-left: auto;
+         margin-right: auto;
+         background-color: white;
+         padding: 10px;
+         border-radius: 6px;
+      }
+      .by-line {
+         color: grey;
+         font-style: italic;
+         display: block;
+         text-align: right;
+      }
+   </style>
+   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
+   <!--<script type="text/javascript" src="/js"></script>-->
+</head>
+<body> 
+   <div id="content">
+      [% text %]<br />
+      <span class="by-line">~[% user.screen_name %] @ [% created_at %]</span>
+   </div>
+</body>
+</html>
+<!--
+[% twitter_bits %]
+-->

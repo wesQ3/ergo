@@ -5,16 +5,21 @@ use Plack::Response;
 use Plack::App::File;
 use JSON;
 use Net::Twitter::Lite;
+use Template;
 my $twit = Net::Twitter::Lite->new;
 my $json = JSON->new->pretty;
+my $tt   = Template->new;
 
 my $app = sub {
    my $req = Plack::Request->new(shift);
    if ( $req->path_info =~ qr{/(\d+)} ) {
       my $res = $req->new_response(200);
       my $tweet = $twit->show_status($1);
-      $res->content_type('text/plain'); 
-      $res->body($json->encode( $tweet ));
+      $res->content_type('text/html'); 
+      $tweet->{twitter_bits} = $json->encode( $tweet );
+      my $out;
+      $tt->process('tweet.tt.html', $tweet, \$out);
+      $res->body($out);
       $res->finalize;
    } else {
       $req->new_response(500)->finalize
