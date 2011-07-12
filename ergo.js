@@ -7,4 +7,12 @@ function redirect() {
    }
 }
 
-redirect();
+function friendlyDates() {
+   $('.date').replaceWith(
+      function() { 
+         return new Date( $( this ).text() ).toLocaleString(); });
+}
+
+$( function(){
+   friendlyDates();
+});

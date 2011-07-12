@@ -13,6 +13,7 @@
          background-color: white;
          padding: 10px;
          border-radius: 6px;
+         border-color: #[% user.profile_sidebar_border_color %];
       }
       .by-line {
          color: grey;
@@ -22,12 +23,14 @@
       }
    </style>
    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
-   <!--<script type="text/javascript" src="/js"></script>-->
+   <script type="text/javascript" src="/js"></script>
 </head>
 <body> 
    <div id="content">
-      [% text %]<br />
-      <span class="by-line">~[% user.screen_name %] @ [% created_at %]</span>
+      <span class="tweet-text">[% text %]</span>
+      <div class="by-line">
+         ~<span class="user-name">[% user.screen_name %]</span> @ <span class="date">[% created_at %]</span>
+      </div>
    </div>
 </body>
 </html>

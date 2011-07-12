@@ -10,15 +10,24 @@ my $twit = Net::Twitter::Lite->new;
 my $json = JSON->new->pretty;
 my $tt   = Template->new;
 
+my $test = {
+   text => 'Gee, twitter sure is cool :D',
+   created_at => 'Tue Jul 05 23:03:44 +0000 2011',
+   user => { name => 'tweeter', screen_name => 'herp' }
+};
+
 my $app = sub {
    my $req = Plack::Request->new(shift);
    if ( $req->path_info =~ qr{/(\d+)} ) {
-      my $res = $req->new_response(200);
-      my $tweet = $twit->show_status($1);
-      $res->content_type('text/html'); 
-      $tweet->{twitter_bits} = $json->encode( $tweet );
+      #my $tweet = eval { $twit->show_status($1) };
+      my $tweet = $test;
+      $tweet->{twitter_bits} = ref $tweet ne 'HASH'
+         ? $json->encode( $tweet->error )
+         : $json->encode( $tweet );
       my $out;
       $tt->process('tweet.tt.html', $tweet, \$out);
+      my $res = $req->new_response(200);
+      $res->content_type('text/html'); 
       $res->body($out);
       $res->finalize;
    } else {
