@@ -6,31 +6,41 @@
          background-color: #[% user.profile_background_color %];
       }
       a { color: #[% user.profile_link_color %]; }
-      #content {
-         width: 600px;
+      .tweet {
+         width: 500px;
          margin-left: auto;
          margin-right: auto;
          background-color: white;
          padding: 10px;
-         border-radius: 6px;
+         border-radius: 6px 6px 0 0 ;
          border-color: #[% user.profile_sidebar_border_color %];
       }
+      #main-tweet {
+         width: 600px;
+         border-radius: 6px;
+         border-color: black;
+      }
+      #main-tweet > .reply-to { display: none }
       .by-line {
          color: grey;
          font-style: italic;
          display: block;
          text-align: right;
       }
+      .raw { color: red; }
    </style>
    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
    <script type="text/javascript" src="/js"></script>
 </head>
 <body> 
-   <div id="content">
+   <div id="main-tweet" class="tweet">
       <span class="tweet-text">[% text %]</span>
       <div class="by-line">
-         ~<span class="user-name">[% user.screen_name %]</span> @ <span class="date">[% created_at %]</span>
+         ~<span class="user-name">[% user.screen_name %]</span> @ <span class="raw date">[% created_at %]</span>
       </div>
+      [% IF in_reply_to_status_id %]
+         <div class="reply-to">[% in_reply_to_status_id %]</div>
+      [% END %]
    </div>
 </body>
 </html>
