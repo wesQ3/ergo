@@ -26,13 +26,13 @@ function friendlyDates() {
 
 function showConversation(id) {
    var replyID = id || $('#main-tweet > .reply-to').text();
-   console.log('fetching', replyID);
    if (replyID) {
       $.ajax({ 
-         url: '/status/' + replyID + '.json',
+         url: '/twitter/status/' + replyID + '.json?ergo-cache',
          success: function( data, status, xhr ) {
             var newTweet = 
                String.format(rawTweet, data.text, data.user.screen_name, data.created_at);
+            $('.top').removeClass('top');
             $('body').prepend(newTweet);
             friendlyDates();
             if (data.in_reply_to_status_id) {
@@ -42,8 +42,9 @@ function showConversation(id) {
       });
    }
 }
+
 var rawTweet = '\
-   <div class="tweet">\
+   <div class="top sub tweet">\
       <span class="tweet-text">{0}</span>\
       <div class="by-line">\
          ~<span class="user-name">{1}</span> @ <span class="raw date">{2}</span>\

@@ -12,8 +12,6 @@
          margin-right: auto;
          background-color: white;
          padding: 10px;
-         border-radius: 6px 6px 0 0 ;
-         border-color: #[% user.profile_sidebar_border_color %];
       }
       #main-tweet {
          width: 600px;
@@ -28,6 +26,12 @@
          text-align: right;
       }
       .raw { color: red; }
+      .sub {
+         border-color: #[% user.profile_sidebar_border_color %];
+      }
+      .top {
+         border-radius: 6px 6px 0 0 ;
+      }
    </style>
    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
    <script type="text/javascript" src="/js"></script>
